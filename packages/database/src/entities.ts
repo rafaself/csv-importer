@@ -1,3 +1,3 @@
-import type { EntityTarget } from "typeorm";
+import type { DataSourceOptions } from "typeorm";
 
-export const entities: EntityTarget<unknown>[] = [];
+export const entities: NonNullable<DataSourceOptions["entities"]> = [];
