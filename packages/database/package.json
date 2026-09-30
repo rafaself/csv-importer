@@ -1,23 +1,19 @@
 {
   "name": "@csv/database",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "dependencies": {
-    "@csv/config": "workspace:*",
-    "pg": "8.23.0",
-    "reflect-metadata": "0.2.2",
-    "typeorm": "1.1.1"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./data-source": {
+      "types": "./dist/data-source.d.ts",
+      "import": "./dist/data-source.js"
+    }
   },
-  "devDependencies": {
-    "@types/node": "^24.19.0",
-    "typescript": "^6.0.3"
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
   }
 }
