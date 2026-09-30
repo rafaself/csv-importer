@@ -1,0 +1,22 @@
+{
+  "name": "csv-importer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.8.1",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.8.1",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "turbo": "^2.11.5"
+  }
+}
