@@ -1,3 +1,3 @@
-import type { DataSourceOptions } from "typeorm";
+export type EntityClass = abstract new (...args: never[]) => object;
 
-export const entities: NonNullable<DataSourceOptions["entities"]> = [];
+export const entities: EntityClass[] = [];

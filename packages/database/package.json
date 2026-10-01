@@ -13,7 +13,11 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "typeorm": "typeorm-ts-node-esm",
+    "migration:run": "typeorm-ts-node-esm migration:run -d src/data-source.ts",
+    "migration:revert": "typeorm-ts-node-esm migration:revert -d src/data-source.ts",
+    "migration:show": "typeorm-ts-node-esm migration:show -d src/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.19.0",
+    "ts-node": "10.9.2",
     "typescript": "^6.0.3"
   }
 }
