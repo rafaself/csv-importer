@@ -5,6 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Relation,
+  Unique,
 } from "typeorm";
 import { Import } from "./Import.js";
 
@@ -15,6 +16,7 @@ enum ImportRowStatus {
 }
 
 @Entity("import_rows")
+@Unique("UQ_IMPORT_ROWS_IMPORT_ID_ROW_NUMBER", ["import", "rowNumber"])
 @Check(`"rowNumber" >= 0`)
 export class ImportRow {
   @PrimaryGeneratedColumn()
