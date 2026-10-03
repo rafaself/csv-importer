@@ -4,12 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
-  Unique,
+  Relation,
   UpdateDateColumn,
 } from "typeorm";
+import { ImportRow } from "./ImportRow.js";
+import { ImportStatus } from "../types.js";
 
-export type ImportStatus = "pending" | "finished" | "processing" | "failed";
 
 @Entity({ name: "imports" })
 @Check(`"totalRows" IS NULL OR "totalRows" >= 0`)
@@ -31,8 +33,8 @@ export class Import {
 
   @Column({
     type: "enum",
-    enum: ["pending", "processing", "finished", "failed"],
-    default: "pending",
+    enum: ImportStatus,
+    default: ImportStatus.PENDING,
   })
   status: ImportStatus;
 
@@ -62,4 +64,10 @@ export class Import {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => ImportRow, (rows) => rows.import, {
+    cascade: ["insert"],
+    onDelete: "CASCADE",
+  })
+  rows: Relation<ImportRow>[];
 }

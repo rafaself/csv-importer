@@ -15,6 +15,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typeorm": "typeorm-ts-node-esm",
+    "migration:generate": "typeorm-ts-node-esm migration:generate -d src/data-source.ts",
     "migration:run": "typeorm-ts-node-esm migration:run -d src/data-source.ts",
     "migration:revert": "typeorm-ts-node-esm migration:revert -d src/data-source.ts",
     "migration:show": "typeorm-ts-node-esm migration:show -d src/data-source.ts"
@@ -24,6 +25,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@csv/shared": "workspace:*",
     "@csv/config": "workspace:*",
     "pg": "8.23.0",
     "reflect-metadata": "0.2.2",
