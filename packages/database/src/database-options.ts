@@ -14,8 +14,8 @@ const migrationsGlob = join(
 const databaseOptions = {
   type: "postgres" as const,
   url: readAppConfig().databaseUrl,
-  entities,
   synchronize: false as const,
+  entities,
   migrations: [migrationsGlob],
 } satisfies DataSourceOptions;
 
