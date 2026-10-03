@@ -23,6 +23,7 @@
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts"
   },
   "dependencies": {
+    "@csv/contracts": "workspace:*",
     "@csv/config": "workspace:*",
     "@csv/database": "workspace:*",
     "@nestjs/common": "^12.0.1",
