@@ -1,1 +1,1 @@
-export type { UserDto } from "./dtos/User.js"
+export type { UserDto } from "./dtos/User.js";

@@ -6,6 +6,10 @@
   "keywords": [],
   "author": "Rafael",
   "license": "ISC",
+  "scripts": {
+    "format": "prettier . --write",
+    "check": "prettier . --check"
+  },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -17,6 +21,7 @@
   "type": "module",
   "private": true,
   "devDependencies": {
+    "prettier": "3.9.9",
     "turbo": "^2.11.5"
   }
 }

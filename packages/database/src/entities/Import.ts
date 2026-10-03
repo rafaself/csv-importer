@@ -12,7 +12,6 @@ import {
 import { ImportRow } from "./ImportRow.js";
 import { ImportStatus } from "../types.js";
 
-
 @Entity({ name: "imports" })
 @Check(`"totalRows" IS NULL OR "totalRows" >= 0`)
 @Check(`"processedRows" >= 0`)

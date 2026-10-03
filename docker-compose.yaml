@@ -1,8 +1,8 @@
 services:
   redis:
-    image: 'redislabs/redismod'
+    image: "redislabs/redismod"
     ports:
-      - '6379:6379'
+      - "6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 1m30s
@@ -22,7 +22,7 @@ services:
       - "54321:5432"
     restart: always
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "csv", "-d", "csv_importer"] 
+      test: ["CMD", "pg_isready", "-U", "csv", "-d", "csv_importer"]
       interval: 1m30s
       timeout: 10s
       retries: 3
