@@ -15,6 +15,11 @@ enum ImportRowStatus {
   PENDING = "pending",
 }
 
+type ImportRowIssue = {
+  field: string;
+  message: string;
+};
+
 @Entity("import_rows")
 @Unique("UQ_IMPORT_ROWS_IMPORT_ID_ROW_NUMBER", ["import", "rowNumber"])
 @Check(`"rowNumber" >= 0`)
@@ -38,5 +43,8 @@ export class ImportRow {
   rowNumber: number;
 
   @Column({ type: "jsonb" })
-  rawValue: { name: string; email: string; company: string };
+  rawValue: any;
+
+  @Column({ type: "jsonb", default: () => "'[]'::jsonb" })
+  issues: ImportRowIssue[];
 }
