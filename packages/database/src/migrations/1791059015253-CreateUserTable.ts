@@ -9,13 +9,9 @@ export class CreateUserTable1791059015253 implements MigrationInterface {
   NULLIF(BTRIM("email"), '') IS NOT NULL OR
   NULLIF(BTRIM("company"), '') IS NOT NULL
 ), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`ALTER TABLE "import_rows" ADD "issues" jsonb NOT NULL DEFAULT '[]'::jsonb`);
-        await queryRunner.query(`ALTER TABLE "import_rows" ADD CONSTRAINT "UQ_IMPORT_ROWS_IMPORT_ID_ROW_NUMBER" UNIQUE ("importId", "rowNumber")`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "import_rows" DROP CONSTRAINT "UQ_IMPORT_ROWS_IMPORT_ID_ROW_NUMBER"`);
-        await queryRunner.query(`ALTER TABLE "import_rows" DROP COLUMN "issues"`);
         await queryRunner.query(`DROP TABLE "user"`);
     }
 
