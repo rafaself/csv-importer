@@ -219,6 +219,9 @@ importers:
       "@csv/config":
         specifier: workspace:*
         version: link:../../packages/config
+      "@csv/contracts":
+        specifier: workspace:*
+        version: link:../../packages/contracts
       "@csv/database":
         specifier: workspace:*
         version: link:../../packages/database
@@ -295,6 +298,9 @@ importers:
 
   apps/web:
     dependencies:
+      "@csv/contracts":
+        specifier: workspace:*
+        version: link:../../packages/contracts
       react:
         specifier: ^19.2.8
         version: 19.3.0
@@ -362,6 +368,9 @@ importers:
       "@csv/config":
         specifier: workspace:*
         version: link:../../packages/config
+      "@csv/contracts":
+        specifier: workspace:*
+        version: link:../../packages/contracts
       "@csv/database":
         specifier: workspace:*
         version: link:../../packages/database
