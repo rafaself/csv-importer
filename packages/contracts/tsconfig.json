@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    // Defines the root directory containing the TypeScript source files.
+    "rootDir": "./src",
+
+    // Defines the directory where the compiled JavaScript files will be generated.
+    "outDir": "./dist",
+
+    // Uses Node.js' modern module system behavior, supporting both ESM and CommonJS.
+    "module": "nodenext",
+
+    // Explicitly defines which global type packages should be included.
+    // An empty array prevents automatic inclusion of installed @types/* packages.
+    "types": [],
+
+    // Generates source map files to map compiled JavaScript back to the original TypeScript.
+    "sourceMap": true,
+
+    // Generates .d.ts declaration files containing the public TypeScript type information.
+    "declaration": true,
+
+    // Generates source maps for .d.ts declaration files.
+    "declarationMap": true,
+
+    // Makes indexed access potentially return undefined when the key or index may not exist.
+    // Example: array[0] becomes T | undefined instead of just T.
+    "noUncheckedIndexedAccess": true,
+
+    // Distinguishes between an optional property being absent and being explicitly set to undefined.
+    "exactOptionalPropertyTypes": true,
+
+    // Enables TypeScript's main strict type-checking options.
+    "strict": true,
+
+    // Preserves import/export syntax more literally instead of rewriting it during compilation.
+    "verbatimModuleSyntax": true,
+
+    // Ensures each file can be safely compiled independently without relying on cross-file analysis.
+    "isolatedModules": true,
+
+    // Reports imports used only for their side effects when TypeScript cannot verify the imported module.
+    "noUncheckedSideEffectImports": true,
+
+    // Forces every file to be treated as a module, even if it has no import or export statements.
+    "moduleDetection": "force",
+
+    // Skips type checking of declaration files inside dependencies, such as files from node_modules.
+    "skipLibCheck": true
+  },
+
+  // Defines which TypeScript files should be included in the compilation.
+  "include": ["src/**/*.ts"]
+}
