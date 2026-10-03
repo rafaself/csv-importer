@@ -7,15 +7,15 @@ import { Check, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
   NULLIF(BTRIM("company"), '') IS NOT NULL
 `)
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: "varchar", nullable: true, length: 128 })
-    fullName?: string;
+  @Column({ type: "varchar", nullable: true, length: 128 })
+  fullName?: string;
 
-    @Column({ type: "varchar", nullable: true, length: 256 })
-    email?: string;
+  @Column({ type: "varchar", nullable: true, length: 256 })
+  email?: string;
 
-    @Column({ type: "varchar", nullable: true, length: 128 })
-    company?: string;
+  @Column({ type: "varchar", nullable: true, length: 128 })
+  company?: string;
 }
