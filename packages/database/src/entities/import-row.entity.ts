@@ -7,7 +7,7 @@ import {
   Relation,
   Unique,
 } from "typeorm";
-import { Import } from "./Import.js";
+import { Import } from "./import.entity.js";
 
 enum ImportRowStatus {
   VALID = "valid",

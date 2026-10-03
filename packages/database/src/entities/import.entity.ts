@@ -9,7 +9,7 @@ import {
   Relation,
   UpdateDateColumn,
 } from "typeorm";
-import { ImportRow } from "./ImportRow.js";
+import { ImportRow } from "./import-row.entity.js";
 import { ImportStatus } from "../types.js";
 
 @Entity({ name: "imports" })

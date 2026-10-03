@@ -1,5 +1,5 @@
-import { Import } from "./entities/Import.js";
-import { ImportRow } from "./entities/ImportRow.js";
+import { Import } from "./entities/import.entity.js";
+import { ImportRow } from "./entities/import-row.entity.js";
 
 export type EntityClass = abstract new (...args: never[]) => object;
 
