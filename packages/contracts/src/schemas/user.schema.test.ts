@@ -39,4 +39,16 @@ describe("create user", () => {
       "At least one field (fullName, email or company) must be provided.",
     );
   });
+
+  it("rejects if any field is not string", () => {
+    expect(() => createUserSchema.parse({ fullName: 1 })).toThrow(
+      "Invalid input: expected string, received number",
+    );
+    expect(() => createUserSchema.parse({ email: true })).toThrow(
+      "Invalid input: expected string, received boolean",
+    );
+    expect(() => createUserSchema.parse({ company: [] })).toThrow(
+      "Invalid input: expected string, received array",
+    );
+  });
 });
