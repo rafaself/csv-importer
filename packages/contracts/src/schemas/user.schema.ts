@@ -2,11 +2,18 @@ import z from "zod";
 
 export const createUserSchema = z
   .strictObject({
-    fullName: z.string().max(128).trim().optional(),
-    email: z.email({ pattern: z.regexes.email }).max(256).trim().optional(),
-    company: z.string().max(128).trim().optional(),
+    fullName: z.string().trim().max(128).optional(),
+
+    email: z
+      .string()
+      .max(256)
+      .trim()
+      .pipe(z.email({ pattern: z.regexes.email }))
+      .optional(),
+
+    company: z.string().trim().max(128).optional(),
   })
-  .refine((data) => data.fullName || data.email || data.company, {
+  .refine((data) => Boolean(data.fullName || data.email || data.company), {
     error: "At least one field (fullName, email or company) must be provided.",
   });
 
