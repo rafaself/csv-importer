@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { ImportRow } from "./import-row.entity.js";
-import { ImportStatus } from "../types.js";
+import { ImportStatus } from "@csv/shared";
 
 @Entity({ name: "imports" })
 @Check(`"totalRows" IS NULL OR "totalRows" >= 0`)
