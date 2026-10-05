@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createUserSchema, type CreateUserDto } from "./user.schema.js";
+import { updateImportStatusSchema } from "./import.schema.js";
 
 describe("create user", () => {
   it("trims surrounding whitespace", () => {
@@ -50,5 +51,15 @@ describe("create user", () => {
     expect(() => createUserSchema.parse({ company: [] })).toThrow(
       "Invalid input: expected string, received array",
     );
+  });
+});
+
+describe("update user", () => {
+  it("checks invalid status", () => {
+    const userData = { status: "INVALID_STATUS" };
+
+    const result = updateImportStatusSchema.safeParse(userData);
+
+    expect(() => result.success).toBe(false);
   });
 });
