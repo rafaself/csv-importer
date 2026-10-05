@@ -27,5 +27,10 @@ export function readAppConfig() {
     throw new Error("API_PORT must be a number between 1 and 65535.");
   }
 
+  const apiUrl = process.env.API_URL;
+  if (!apiUrl) {
+    throw new Error("API_URL is required.");
+  }
+
   return { databaseUrl, apiPort };
 }
