@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { createUserSchema, type CreateUserDto } from "./user.schema.js";
-import { updateImportStatusSchema } from "./import.schema.js";
+import {
+  updateImportStatusSchema,
+  type UpdateImportStatusDto,
+} from "./import.schema.js";
+import { ImportStatus } from "@csv/shared";
 
 describe("create user", () => {
   it("trims surrounding whitespace", () => {
@@ -54,7 +58,7 @@ describe("create user", () => {
   });
 });
 
-describe("update user", () => {
+describe("update user status", () => {
   it("checks invalid status", () => {
     const userData = { status: "INVALID_STATUS" };
 
@@ -62,4 +66,54 @@ describe("update user", () => {
 
     expect(result.success).toBe(false);
   });
+
+  it("checks pending status", () => {
+    const userData: UpdateImportStatusDto = { status: ImportStatus.PENDING };
+
+    const result = updateImportStatusSchema.safeParse(userData);
+
+    expect(result.success).toBe(true);
+  });
+
+  it("checks completed status", () => {
+    const userData: UpdateImportStatusDto = { status: ImportStatus.COMPLETED };
+
+    const result = updateImportStatusSchema.safeParse(userData);
+
+    expect(result.success).toBe(true);
+  });
+
+  it("checks failed status", () => {
+    const userData: UpdateImportStatusDto = { status: ImportStatus.FAILED };
+
+    const result = updateImportStatusSchema.safeParse(userData);
+
+    expect(result.success).toBe(true);
+  });
+
+  it("checks processing status", () => {
+    const userData: UpdateImportStatusDto = {
+      status: ImportStatus.PROCESSING,
+    };
+
+    const result = updateImportStatusSchema.safeParse(userData);
+
+    expect(result.success).toBe(true);
+  });
+
+  it.each(["COMPLETED", "FAILED", "PENDING", "PROCESSING"])(
+    "rejects uppercase status %s",
+    (status) => {
+      const result = updateImportStatusSchema.safeParse({ status });
+
+      expect(result.success).toBe(false);
+
+      if (!result.success) {
+        expect(result.error.issues[0]).toMatchObject({
+          code: "invalid_value",
+          path: ["status"],
+        });
+      }
+    },
+  );
 });
