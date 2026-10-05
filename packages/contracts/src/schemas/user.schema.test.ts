@@ -37,10 +37,8 @@ describe("create user", () => {
     }
   });
 
-  it("rejects if any field is given", () => {
-    const user: CreateUserDto = {};
-
-    expect(() => createUserSchema.parse(user)).toThrow(
+  it("rejects if no field is given", () => {
+    expect(() => createUserSchema.parse({})).toThrow(
       "At least one field (fullName, email or company) must be provided.",
     );
   });
@@ -59,45 +57,20 @@ describe("create user", () => {
 });
 
 describe("update user status", () => {
-  it("checks invalid status", () => {
+  it("checks hard texted 'INVALID_STATUS' invalid status", () => {
     const userData = { status: "INVALID_STATUS" };
-
     const result = updateImportStatusSchema.safeParse(userData);
-
     expect(result.success).toBe(false);
   });
 
-  it("checks pending status", () => {
-    const userData: UpdateImportStatusDto = { status: ImportStatus.PENDING };
-
+  it.each([
+    ImportStatus.COMPLETED,
+    ImportStatus.FAILED,
+    ImportStatus.PENDING,
+    ImportStatus.PROCESSING,
+  ])("checks %s status", (val) => {
+    const userData: UpdateImportStatusDto = { status: val };
     const result = updateImportStatusSchema.safeParse(userData);
-
-    expect(result.success).toBe(true);
-  });
-
-  it("checks completed status", () => {
-    const userData: UpdateImportStatusDto = { status: ImportStatus.COMPLETED };
-
-    const result = updateImportStatusSchema.safeParse(userData);
-
-    expect(result.success).toBe(true);
-  });
-
-  it("checks failed status", () => {
-    const userData: UpdateImportStatusDto = { status: ImportStatus.FAILED };
-
-    const result = updateImportStatusSchema.safeParse(userData);
-
-    expect(result.success).toBe(true);
-  });
-
-  it("checks processing status", () => {
-    const userData: UpdateImportStatusDto = {
-      status: ImportStatus.PROCESSING,
-    };
-
-    const result = updateImportStatusSchema.safeParse(userData);
-
     expect(result.success).toBe(true);
   });
 
