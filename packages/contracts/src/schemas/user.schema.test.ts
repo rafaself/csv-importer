@@ -60,6 +60,6 @@ describe("update user", () => {
 
     const result = updateImportStatusSchema.safeParse(userData);
 
-    expect(() => result.success).toBe(false);
+    expect(result.success).toBe(false);
   });
 });
