@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getDatabaseOptions } from '@csv/database';
 import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
 import { ImportModule } from './apps/imports/import.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { StorageModule } from '@nestjs/storage';
 import { createStorageOptions } from './apps/storage/storage.config.js';
+import { apiConfig } from './app.config.js';
 
 @Module({
   imports: [
@@ -14,13 +14,12 @@ import { createStorageOptions } from './apps/storage/storage.config.js';
     TypeOrmModule.forRootAsync({
       useFactory: () => getDatabaseOptions(),
     }),
-    ConfigModule.forRoot({ isGlobal: true, load: [] }),
+    ConfigModule.forRoot({ isGlobal: true, load: [apiConfig] }),
     StorageModule.forRootAsync({
       inject: [ConfigService],
       useFactory: createStorageOptions,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

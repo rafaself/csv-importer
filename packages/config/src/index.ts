@@ -1,10 +1,14 @@
 import { existsSync } from "node:fs";
+import getStorageConfig, { StorageConfig } from "./storage.js";
+
+export type { StorageConfig };
 
 export interface AppConfig {
   databaseUrl: string;
   apiPort: number;
   apiHost: string;
   apiUrl: string;
+  storage: StorageConfig;
 }
 
 const rootEnvFile = new URL("../../../.env", import.meta.url);
@@ -39,5 +43,7 @@ export function readAppConfig(): AppConfig {
     throw new Error("API_PORT must be a number between 1 and 65535.");
   }
 
-  return { databaseUrl, apiPort, apiHost, apiUrl };
+  const storage = getStorageConfig();
+
+  return { databaseUrl, apiPort, apiHost, apiUrl, storage };
 }
