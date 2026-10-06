@@ -14,11 +14,7 @@ import {
   StoredUpload,
   uploadToDisk,
 } from '@nestjs/storage';
-import {
-  FILE_CACHE_CONTROL,
-  FILE_TYPES,
-  MAX_FILE_SIZE,
-} from '../storage/storage.rules.js';
+import { FILE_CACHE_CONTROL, FILE_TYPES } from '../storage/storage.rules.js';
 
 @Controller('import')
 export class ImportController {
@@ -35,7 +31,6 @@ export class ImportController {
         contentTypes: FILE_TYPES,
         cacheControl: FILE_CACHE_CONTROL,
       }),
-      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     }),
   )
   importData(@UploadedFile() file: StoredUpload | undefined) {
