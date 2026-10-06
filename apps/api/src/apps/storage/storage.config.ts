@@ -36,13 +36,13 @@ export function createStorageOptions(
       disks: {
         public: new LocalDisk({
           root: `${root}/public`,
-          publicUrl: `${apiUrl}/public`,
+          publicUrl: `http://${apiUrl}/public`,
         }),
 
         private: new LocalDisk({
           root: `${root}/private`,
           signedUrls: {
-            baseUrl: `${apiUrl}/files`,
+            baseUrl: `http://${apiUrl}/files`,
             keys: [config.getOrThrow<string>('storage.signingKey')],
           },
         }),
