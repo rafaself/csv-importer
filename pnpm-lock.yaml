@@ -240,6 +240,9 @@ importers:
       "@nestjs/core":
         specifier: ^12.0.1
         version: 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.1.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      "@nestjs/i18n":
+        specifier: ^0.0.1
+        version: 0.0.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(@standard-schema/spec@1.1.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       "@nestjs/platform-express":
         specifier: ^12.0.1
         version: 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(supports-color@7.2.0)
@@ -1379,6 +1382,25 @@ packages:
       "@nestjs/platform-express":
         optional: true
       "@nestjs/websockets":
+        optional: true
+
+  "@nestjs/i18n@0.0.1":
+    resolution:
+      {
+        integrity: sha512-OkmYrYG9l01RBCVQp4rPR7sMwB3nDVav0EYMeTYhjiHFi5+l2SYb/ro0UvhKOQARuoGza8rC8C+uJaelgev2xg==,
+      }
+    engines: { node: ">=20.19.0" }
+    peerDependencies:
+      "@nestjs/common": ^12.1.0
+      "@nestjs/core": ^12.1.0
+      "@standard-schema/spec": ^1.0.0
+      class-validator: ^0.14.0
+      reflect-metadata: ^0.1.13 || ^0.2.0
+      rxjs: ^7.1.0
+    peerDependenciesMeta:
+      "@standard-schema/spec":
+        optional: true
+      class-validator:
         optional: true
 
   "@nestjs/mau@0.2.8":
@@ -6232,6 +6254,15 @@ snapshots:
       uid: 2.0.2
     optionalDependencies:
       "@nestjs/platform-express": 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(supports-color@7.2.0)
+
+  "@nestjs/i18n@0.0.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(@standard-schema/spec@1.1.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)":
+    dependencies:
+      "@nestjs/common": 12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
+      "@nestjs/core": 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.1.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      reflect-metadata: 0.2.2
+      rxjs: 7.8.2
+    optionalDependencies:
+      "@standard-schema/spec": 1.1.0
 
   "@nestjs/mau@0.2.8":
     dependencies:
