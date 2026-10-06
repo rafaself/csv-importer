@@ -12,17 +12,22 @@ import { MAX_FILE_SIZE } from './apps/storage/storage.rules.js';
 
 @Module({
   imports: [
+    // App modules
     ImportModule,
-    MulterModule.register({
-      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
-    }),
+
+    // Utils modules
+    ConfigModule.forRoot({ isGlobal: true, load: [apiConfig] }),
     TypeOrmModule.forRootAsync({
       useFactory: () => getDatabaseOptions(),
     }),
-    ConfigModule.forRoot({ isGlobal: true, load: [apiConfig] }),
+
+    // Storage related modules
     StorageModule.forRootAsync({
       inject: [ConfigService],
       useFactory: createStorageOptions,
+    }),
+    MulterModule.register({
+      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     }),
   ],
   controllers: [AppController],
