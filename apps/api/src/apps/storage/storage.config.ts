@@ -47,13 +47,13 @@ function getLocalConfig(config: ConfigService) {
     disks: {
       public: new LocalDisk({
         root: `${root}/public`,
-        publicUrl: `http://${apiUrl}/public`,
+        publicUrl: `http://${apiUrl}/files/public`,
       }),
 
       private: new LocalDisk({
         root: `${root}/private`,
         signedUrls: {
-          baseUrl: `http://${apiUrl}/files`,
+          baseUrl: `http://${apiUrl}/files/private`,
           keys: [config.getOrThrow<string>('storage.signingKey')],
         },
       }),
