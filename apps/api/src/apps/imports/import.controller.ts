@@ -1,49 +1,45 @@
 import {
   BadRequestException,
   Controller,
-  Get,
   Post,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+import { TextDecoder } from 'node:util';
 import { ImportService } from './import.service.js';
 import { FileInterceptor } from '@nestjs/platform-express';
-import {
-  InjectDisk,
-  StorageDisk,
-  StoredUpload,
-  uploadToDisk,
-} from '@nestjs/storage';
-import { FILE_CACHE_CONTROL, FILE_TYPES } from '../storage/storage.rules.js';
+import { type StoredUpload, uploadToDisk } from '@nestjs/storage';
+import { FILE_TYPES, MAX_FILE_SIZE } from '../storage/storage.rules.js';
 
 @Controller('import')
 export class ImportController {
-  constructor(
-    private readonly importService: ImportService,
-    @InjectDisk('public') private readonly publicFiles: StorageDisk,
-  ) {}
+  constructor(private readonly importService: ImportService) {}
 
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
       storage: uploadToDisk({
-        disk: 'public',
+        disk: 'private',
         contentTypes: FILE_TYPES,
-        cacheControl: FILE_CACHE_CONTROL,
+        detectContentType: detectCsvContentType,
       }),
+      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     }),
   )
   importData(@UploadedFile() file: StoredUpload | undefined) {
-    if (!file) {
-      throw new BadRequestException('File is required.');
-    }
+    return file;
+  }
+}
 
-    console.log(file);
+function detectCsvContentType(bytes: Buffer): string | undefined {
+  if (bytes.length === 0 || bytes.includes(0)) {
+    return undefined;
+  }
 
-    this.importService.uploadFile();
-
-    return {
-      status: 'ok',
-    };
+  try {
+    new TextDecoder('utf-8', { fatal: true }).decode(bytes, { stream: true });
+    return 'text/csv';
+  } catch {
+    return undefined;
   }
 }
