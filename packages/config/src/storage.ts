@@ -3,50 +3,57 @@ export interface StorageConfig {
   root: string;
   signingKey?: string;
   objectStorage?: {
-    endpoint?: string;
+    endpoint: string;
     region: string;
     publicBucket: string;
     privateBucket: string;
   };
 }
 
-export default () => {
-  var storageDriver =
-    process.env.STORAGE_DRIVER?.trim().toLocaleLowerCase() ?? "local";
-  var storageRoot = process.env.STORAGE_ROOT?.trim() ?? "storage";
-  var signingKey = process.env.SIGNING_KEY?.trim();
+type DriverOptions = "local" | "s3";
 
-  const result: StorageConfig = {
-    driver: storageDriver,
-    root: storageRoot,
-    signingKey,
-  };
+export default function loadStorageConfig(
+  env: NodeJS.ProcessEnv,
+): StorageConfig {
+  const root = env.STORAGE_ROOT?.trim() ?? "storage";
+  const signingKey = env.SIGNING_KEY?.trim();
 
-  if (storageDriver.toLocaleLowerCase() === "s3" && validateS3Variables()) {
-    result.objectStorage = {
-      endpoint: process.env.S3_ENDPOINT!,
-      region: process.env.S3_REGION!,
-      publicBucket: process.env.S3_APP_BUCKET!,
-      privateBucket: process.env.S3_PRIVATE_BUCKET!,
+  const rawDriver = env.STORAGE_DRIVER?.trim().toLowerCase() ?? "local";
+  if (rawDriver !== "local" && rawDriver !== "s3") {
+    throw new Error(`Unsupported storage driver: ${rawDriver}`);
+  }
+  const driver: DriverOptions = rawDriver;
+
+  if (driver === "local") {
+    return {
+      driver,
+      root,
+      signingKey,
     };
-  } else if (storageDriver.toLocaleLowerCase() === "local") {
-    result.objectStorage = {
-      region: "auto",
-      publicBucket: "store-app-files",
-      privateBucket: "store-app-private-files",
-    };
-  } else {
-    throw Error("You must specify an storage driver.");
   }
 
-  return result;
-};
+  if (driver === "s3") {
+    const endpoint = env.S3_ENDPOINT?.trim();
+    const region = env.S3_REGION?.trim();
+    const publicBucket = env.S3_APP_BUCKET?.trim();
+    const privateBucket = env.S3_PRIVATE_BUCKET?.trim();
 
-function validateS3Variables() {
-  return (
-    process.env.S3_ENDPOINT &&
-    process.env.S3_REGION &&
-    process.env.S3_APP_BUCKET &&
-    process.env.S3_PRIVATE_BUCKET
-  );
+    if (!endpoint || !region || !publicBucket || !privateBucket) {
+      throw new Error("Missing required S3 storage configuration.");
+    }
+
+    return {
+      driver,
+      root,
+      signingKey,
+      objectStorage: {
+        endpoint,
+        region,
+        publicBucket,
+        privateBucket,
+      },
+    };
+  }
+
+  throw new Error(`Unsupported storage driver: ${driver}`);
 }
