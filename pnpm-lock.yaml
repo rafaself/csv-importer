@@ -247,8 +247,8 @@ importers:
         specifier: ^12.0.1
         version: 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(supports-color@7.2.0)
       "@nestjs/storage":
-        specifier: file:../../../../projects/storage
-        version: file:../../projects/storage(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)
+        specifier: 0.0.2
+        version: 0.0.2(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)
       "@nestjs/typeorm":
         specifier: 12.0.2
         version: 12.0.2(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.1(pg@8.23.0)(supports-color@7.2.0)(ts-node@10.9.2(@types/node@24.19.0)(typescript@6.0.3)))
@@ -1433,8 +1433,11 @@ packages:
       prettier:
         optional: true
 
-  "@nestjs/storage@file:../../projects/storage":
-    resolution: { directory: ../../projects/storage, type: directory }
+  "@nestjs/storage@0.0.2":
+    resolution:
+      {
+        integrity: sha512-h+yNr42tg/XGKadyuubybkNd4kxteXYQQ+7j2lj4bkuBGzEdYjCj4E6+8YHIXEMEWT6CEe1pUhcMC57BNUH6bQ==,
+      }
     engines: { node: ">=20.19.0" }
     peerDependencies:
       "@nestjs/common": ^12.1.0
@@ -6296,7 +6299,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  "@nestjs/storage@file:../../projects/storage(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)":
+  "@nestjs/storage@0.0.2(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)":
     dependencies:
       "@nestjs/common": 12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
       "@nestjs/core": 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.1.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
