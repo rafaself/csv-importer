@@ -10,16 +10,18 @@ const validImportData = [
     originalFileName: "my-file-2.png",
     storageKey: "some-random-key-2",
   },
-];
+] as const;
 
 const invalidImportDataWithMissingFields = [
   {
-    originalFileName: "my-file.csv",
+    field: "originalFileName",
+    data: { storageKey: "some-random-key" },
   },
   {
-    storageKey: "some-random-key",
+    field: "storageKey",
+    data: { originalFileName: "my-file.csv" },
   },
-];
+] as const;
 
 describe("createImportSchema", () => {
   it.for(validImportData)(
@@ -32,16 +34,16 @@ describe("createImportSchema", () => {
   );
 
   it.for(invalidImportDataWithMissingFields)(
-    "rejects missing required fields",
-    (data) => {
+    "rejects the missing required field: $field",
+    ({ data, field }) => {
       const result = createImportSchema.safeParse(data);
 
       expect(result.success).toBe(false);
       expect(result.error?.issues).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
+            path: [field],
             code: "invalid_type",
-            message: "Invalid input: expected string, received undefined",
             expected: "string",
           }),
         ]),
