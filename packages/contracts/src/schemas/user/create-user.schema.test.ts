@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { createUserSchema, type CreateUserDto } from "./user.schema.js";
-import {
-  updateImportStatusSchema,
-  type UpdateImportStatusDto,
-} from "./import.schema.js";
+import { createUserSchema } from "./create-user.schema.js";
+
 import { ImportStatus } from "@csv/shared";
+import type { CreateUserDto } from "../../dtos/user.dto.js";
+import { updateImportStatusSchema } from "../import/update-import.schema.js";
+import type { UpdateImportStatusDto } from "../../dtos/import.dto.js";
 
 describe("create user", () => {
   it("trims surrounding whitespace", () => {
@@ -25,6 +25,7 @@ describe("create user", () => {
 
   it("rejects an invalid email", () => {
     const user: CreateUserDto = {
+      fullName: "Peter Parker",
       email: "peterparker#mail.com",
     };
 

@@ -9,6 +9,3 @@ export const createImportSchema = z.object({
 export const updateImportStatusSchema = z.object({
   status: z.enum(ImportStatus),
 });
-
-export type CreateImportDto = z.infer<typeof createImportSchema>;
-export type UpdateImportStatusDto = z.infer<typeof updateImportStatusSchema>;
