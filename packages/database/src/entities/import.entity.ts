@@ -14,16 +14,16 @@ import { ImportStatus } from "@csv/shared";
 
 @Entity({ name: "imports" })
 @Check(`"totalRows" IS NULL OR "totalRows" >= 0`)
-@Check(`"processedRows" >= 0`)
-@Check(`"successRows" >= 0`)
-@Check(`"failedRows" >= 0`)
+@Check(`"processedRows" BETWEEN 1 and 10000`)
+@Check(`"successRows" BETWEEN 1 and 10000`)
+@Check(`"failedRows" BETWEEN 1 and 10000`)
 @Check(`"successRows" + "failedRows" = "processedRows"`)
 @Check(`"totalRows" IS NULL OR "processedRows" <= "totalRows"`)
 export class Import {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({ type: "varchar", length: 1024 })
   originalFileName: string;
 
   @Column({ unique: true })
