@@ -8,17 +8,7 @@ import {
   Unique,
 } from "typeorm";
 import { Import } from "./import.entity.js";
-
-enum ImportRowStatus {
-  VALID = "valid",
-  INVALID = "invalid",
-  PENDING = "pending",
-}
-
-type ImportRowIssue = {
-  field: string;
-  message: string;
-};
+import { ImportRowIssue, ImportRowStatus } from "@csv/shared";
 
 @Entity("import_rows")
 @Unique("UQ_IMPORT_ROWS_IMPORT_ID_ROW_NUMBER", ["import", "rowNumber"])

@@ -66,7 +66,6 @@ export class Import {
 
   @OneToMany(() => ImportRow, (rows) => rows.import, {
     cascade: ["insert"],
-    onDelete: "CASCADE",
   })
   rows: Relation<ImportRow>[];
 }
