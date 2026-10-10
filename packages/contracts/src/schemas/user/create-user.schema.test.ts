@@ -39,8 +39,22 @@ describe("create user", () => {
   });
 
   it("rejects if no field is given", () => {
-    expect(() => createUserSchema.parse({})).toThrow(
-      "At least one field (fullName, email or company) must be provided.",
+    const result = createUserSchema.safeParse({});
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues).toHaveLength(2);
+
+    expect(result.error?.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: ["fullName"],
+          code: "invalid_type",
+        }),
+        expect.objectContaining({
+          path: ["email"],
+          code: "invalid_type",
+        }),
+      ]),
     );
   });
 
