@@ -30,9 +30,6 @@ import { apiConfig, databaseConfig, storageConfig } from './app.config.js';
       useFactory: (config: ConfigService) =>
         createStorageOptions(config.getOrThrow('storage')),
     }),
-    MulterModule.register({
-      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
-    }), // Intentional,
   ],
   controllers: [AppController],
 })

@@ -28,6 +28,7 @@ export class ImportController {
         detectContentType: detectCsvContentType,
         key: (file: UploadFileInfo) => `${file.originalname}`,
       }),
+      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     }),
   )
   importData(@UploadedFile() file: StoredUpload | undefined) {
