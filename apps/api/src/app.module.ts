@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getDatabaseOptions } from '@csv/database';
 import { AppController } from './app.controller.js';
 import { ImportModule } from './apps/imports/import.module.js';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import { StorageModule } from '@nestjs/storage';
 import { createStorageOptions } from './apps/storage/storage.config.js';
 import { MulterModule } from '@nestjs/platform-express';
@@ -16,13 +16,12 @@ import { apiConfig, databaseConfig, storageConfig } from './app.config.js';
 
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [apiConfig, databaseConfig, storageConfig],
+      load: [apiConfig, storageConfig],
       envFilePath: '../../../.env',
     }),
     TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) =>
-        getDatabaseOptions(config.getOrThrow('databaseConfig')),
+      inject: [databaseConfig.KEY],
+      useFactory: (options: ConfigType<typeof databaseConfig>) => options,
     }),
 
     StorageModule.forRootAsync({
