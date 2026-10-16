@@ -16,24 +16,15 @@ export function createStorageOptions(
 }
 
 function getS3Config(config: ConfigService) {
-  const s3 = {
-    endpoint: config.get<string>("storage.objectStorage.endpoint"),
-    region: config.getOrThrow<string>("storage.objectStorage.region"),
-  };
+  const { endpoint, region, privateBucket, publicBucket } = config.get(
+    "storage.objectStorage",
+  );
 
   return {
     default: "private",
     disks: {
-      public: new S3Disk({
-        ...s3,
-        bucket: config.getOrThrow<string>("storage.objectStorage.publicBucket"),
-      }),
-      private: new S3Disk({
-        ...s3,
-        bucket: config.getOrThrow<string>(
-          "storage.objectStorage.privateBucket",
-        ),
-      }),
+      public: new S3Disk({ endpoint, region, bucket: publicBucket }),
+      private: new S3Disk({ endpoint, region, bucket: privateBucket }),
     },
   };
 }
