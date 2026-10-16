@@ -231,6 +231,9 @@ importers:
       "@csv/database":
         specifier: workspace:*
         version: link:../../packages/database
+      "@csv/shared":
+        specifier: workspace:*
+        version: link:../../packages/shared
       "@csv/storage":
         specifier: workspace:*
         version: link:../../packages/storage

@@ -28,7 +28,7 @@ import { StorageModule } from '@nestjs/storage';
     }),
 
     StorageModule.forRootAsync({
-      inject: [ConfigService],
+      inject: [storageConfig.KEY],
       useFactory: buildStorageOptions,
     }),
   ],

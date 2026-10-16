@@ -1,5 +1,6 @@
-import { loadApiConfig, loadStorageConfig, StorageConfig } from '@csv/config';
+import { loadApiConfig, loadStorageConfig } from '@csv/config';
 import { getDatabaseOptions } from '@csv/database';
+import { StorageConfig } from '@csv/shared';
 import { createStorageOptions } from '@csv/storage';
 import { ConfigService, registerAs } from '@nestjs/config';
 import { type StorageModuleOptions } from '@nestjs/storage';
@@ -15,7 +16,7 @@ export const storageConfig = registerAs('storage', () =>
 );
 
 export const buildStorageOptions = (
-  config: ConfigService<{ storage: StorageConfig }>,
+  storageConfig: StorageConfig,
 ): StorageModuleOptions => {
-  return createStorageOptions(config.getOrThrow('storage'));
+  return createStorageOptions(storageConfig);
 };

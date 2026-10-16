@@ -26,6 +26,7 @@
     "@csv/config": "workspace:*",
     "@csv/contracts": "workspace:*",
     "@csv/database": "workspace:*",
+    "@csv/shared": "workspace:*",
     "@csv/storage": "workspace:*",
     "@nestjs/common": "^12.0.1",
     "@nestjs/config": "^12.0.1",
