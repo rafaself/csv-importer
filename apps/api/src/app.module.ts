@@ -20,7 +20,6 @@ import {
     ImportModule,
 
     ConfigModule.forRoot({
-      cache: true,
       envFilePath: '../../../.env',
       expandVariables: true,
       isGlobal: true,
