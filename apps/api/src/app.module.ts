@@ -2,15 +2,17 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { ImportModule } from './apps/imports/import.module.js';
-import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
-import {
-  apiConfig,
-  buildDatabaseOptions,
-  buildStorageOptions,
-  databaseConfig,
-  storageConfig,
-} from './app.config.js';
+import { ConfigModule } from '@nestjs/config';
 import { StorageModule } from '@nestjs/storage';
+import { apiConfig } from './configs/api.config.js';
+import {
+  buildDatabaseOptions,
+  databaseConfig,
+} from './configs/database.config.js';
+import {
+  buildStorageOptions,
+  storageConfig,
+} from './configs/storage.config.js';
 
 @Module({
   controllers: [AppController],
