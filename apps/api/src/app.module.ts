@@ -22,6 +22,7 @@ import {
     ConfigModule.forRoot({
       cache: true,
       envFilePath: '../../../.env',
+      expandVariables: true,
       isGlobal: true,
       load: [apiConfig, databaseConfig, storageConfig],
     }),
