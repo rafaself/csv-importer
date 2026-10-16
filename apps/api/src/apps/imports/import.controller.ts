@@ -27,7 +27,6 @@ export class ImportController {
         disk: 'private',
         contentTypes: FILE_TYPES,
         detectContentType: detectCsvContentType,
-        key: (file: UploadFileInfo) => `${file.originalname}`,
       }),
       limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     }),
