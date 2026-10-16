@@ -534,6 +534,19 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
+  packages/storage:
+    dependencies:
+      "@nestjs/storage":
+        specifier: ^0.0.3
+        version: 0.0.3(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)
+    devDependencies:
+      "@types/node":
+        specifier: ^26.6.5
+        version: 26.6.5
+      typescript:
+        specifier: ^7.0.2
+        version: 7.0.2
+
 packages:
   "@angular-devkit/core@22.2.0":
     resolution:
@@ -1444,6 +1457,17 @@ packages:
       "@nestjs/core": ^12.1.0
       reflect-metadata: ^0.1.13 || ^0.2.0
 
+  "@nestjs/storage@0.0.3":
+    resolution:
+      {
+        integrity: sha512-ATS6ZAdyn1VdqGCfneJk48KhEoWt1Wq0V9CHxNMkp2k4Jx91HruH2clV2qOlaCVK9fnPkttzMzKY294q8PiV4A==,
+      }
+    engines: { node: ">=20.19.0" }
+    peerDependencies:
+      "@nestjs/common": ^12.1.0
+      "@nestjs/core": ^12.1.0
+      reflect-metadata: ^0.1.13 || ^0.2.0
+
   "@nestjs/testing@12.1.1":
     resolution:
       {
@@ -2241,6 +2265,12 @@ packages:
     resolution:
       {
         integrity: sha512-ldVPDCzj7fsaGZrLB0NuHuTvJcsNasysBAqMolr/cgxrLd1xbqxIr3XJiPnHHJUCxj5sNF1vnRj9aWnrVh5Jcg==,
+      }
+
+  "@types/node@26.6.5":
+    resolution:
+      {
+        integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==,
       }
 
   "@types/qs@6.15.1":
@@ -6305,6 +6335,12 @@ snapshots:
       "@nestjs/core": 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.1.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       reflect-metadata: 0.2.2
 
+  "@nestjs/storage@0.0.3(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(reflect-metadata@0.2.2)":
+    dependencies:
+      "@nestjs/common": 12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
+      "@nestjs/core": 12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.1.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      reflect-metadata: 0.2.2
+
   "@nestjs/testing@12.1.1(@nestjs/common@12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.1.1)(@nestjs/platform-express@12.1.1)":
     dependencies:
       "@nestjs/common": 12.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
@@ -6639,6 +6675,10 @@ snapshots:
       undici-types: 8.9.0
 
   "@types/node@26.6.4":
+    dependencies:
+      undici-types: 8.9.0
+
+  "@types/node@26.6.5":
     dependencies:
       undici-types: 8.9.0
 
