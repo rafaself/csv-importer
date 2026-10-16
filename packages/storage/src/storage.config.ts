@@ -1,29 +1,10 @@
+import {
+  LocalObjectStorage,
+  S3ObjectStorage,
+  StorageConfig,
+} from "@csv/shared";
 import { LocalDisk, S3Disk, type StorageModuleOptions } from "@nestjs/storage";
 import { join } from "node:path";
-
-interface LocalObjectStorage {
-  root: string;
-  signingKey: string;
-  baseUrl: string;
-}
-
-interface S3ObjectStorage {
-  endpoint?: string;
-  region: string;
-  publicBucket: string;
-  privateBucket: string;
-  publicUrl: string;
-}
-
-export type StorageConfig =
-  | {
-      driver: "local";
-      objectStorage: LocalObjectStorage;
-    }
-  | {
-      driver: "s3";
-      objectStorage: S3ObjectStorage;
-    };
 
 export function createStorageOptions(
   config: StorageConfig,

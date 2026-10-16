@@ -1,16 +1,8 @@
-export interface StorageConfig {
-  driver: string;
-  root: string;
-  signingKey?: string;
-  objectStorage?: {
-    endpoint: string;
-    region: string;
-    publicBucket: string;
-    privateBucket: string;
-  };
-}
-
-type DriverOptions = "local" | "s3";
+import {
+  LocalObjectStorage,
+  S3ObjectStorage,
+  StorageConfig,
+} from "@csv/shared";
 
 export default function loadStorageConfig(
   env: NodeJS.ProcessEnv,
@@ -18,10 +10,21 @@ export default function loadStorageConfig(
   const root = env.STORAGE_ROOT?.trim() ?? "storage";
   const signingKey = env.SIGNING_KEY?.trim();
 
-  const rawDriver = env.STORAGE_DRIVER?.trim().toLowerCase() ?? "local";
-  if (rawDriver !== "local" && rawDriver !== "s3") {
-    throw new Error(`Unsupported storage driver: ${rawDriver}`);
+  const storageDriver = env.STORAGE_DRIVER?.trim().toLowerCase() ?? "local";
+
+  switch (storageDriver) {
+    case "s3":
+      null;
+
+    case "local":
+      null;
+
+    default:
+      throw new Error(
+        "Invalid or unsupported storage driver. Allowed drivers: 'local' and 's3'.",
+      );
   }
+
   const driver: DriverOptions = rawDriver;
 
   if (driver === "local") {
