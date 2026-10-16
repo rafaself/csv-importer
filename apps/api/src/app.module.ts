@@ -22,10 +22,7 @@ import { StorageModule } from '@nestjs/storage';
       cache: true,
     }),
 
-    TypeOrmModule.forRootAsync({
-      inject: [databaseConfig.KEY],
-      useFactory: (options: ConfigType<typeof databaseConfig>) => options,
-    }),
+    TypeOrmModule.forRootAsync(databaseConfig.asProvider()),
 
     StorageModule.forRootAsync({
       inject: [storageConfig.KEY],
