@@ -13,7 +13,8 @@ import {
   UploadFileInfo,
   uploadToDisk,
 } from '@nestjs/storage';
-import { FILE_TYPES, MAX_FILE_SIZE } from '../storage/storage.rules.js';
+import { FILE_TYPES, MAX_FILE_SIZE } from '@csv/storage';
+import { detectCsvContentType } from './import.utils.js';
 
 @Controller('import')
 export class ImportController {
@@ -33,18 +34,5 @@ export class ImportController {
   )
   importData(@UploadedFile() file: StoredUpload | undefined) {
     return file;
-  }
-}
-
-function detectCsvContentType(bytes: Buffer): string | undefined {
-  if (bytes.length === 0 || bytes.includes(0)) {
-    return undefined;
-  }
-
-  try {
-    new TextDecoder('utf-8', { fatal: true }).decode(bytes, { stream: true });
-    return 'text/csv';
-  } catch {
-    return undefined;
   }
 }

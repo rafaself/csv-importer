@@ -32,6 +32,7 @@ function getS3Config(config: ConfigService) {
 function getLocalConfig(config: ConfigService) {
   const apiUrl = config.getOrThrow<string>("apiUrl");
   const root = config.getOrThrow<string>("storage.root");
+  const signingKey = config.getOrThrow<string>("storage.signingKey");
 
   return {
     default: "private",
@@ -45,7 +46,7 @@ function getLocalConfig(config: ConfigService) {
         root: `${root}/private`,
         signedUrls: {
           baseUrl: `http://${apiUrl}/files/private`,
-          keys: [config.getOrThrow<string>("storage.signingKey")],
+          keys: [signingKey],
         },
       }),
     },
