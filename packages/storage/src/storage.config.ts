@@ -1,51 +1,81 @@
-import { ConfigService } from "@nestjs/config";
 import { LocalDisk, S3Disk, type StorageModuleOptions } from "@nestjs/storage";
+import { join } from "node:path";
 
-export function createStorageOptions(
-  config: ConfigService,
-): StorageModuleOptions {
-  const driver = config.getOrThrow<string>("storage.driver");
-
-  if (driver === "s3") {
-    return getS3Config(config);
-  } else if (driver === "local") {
-    return getLocalConfig(config);
-  }
-
-  throw Error("You must specify a valid storage driver.");
+interface LocalObjectStorage {
+  root: string;
+  signingKey: string;
+  baseUrl: string;
 }
 
-function getS3Config(config: ConfigService) {
-  const { endpoint, region, privateBucket, publicBucket } = config.get(
-    "storage.objectStorage",
-  );
+interface S3ObjectStorage {
+  endpoint?: string;
+  region: string;
+  publicBucket: string;
+  privateBucket: string;
+  publicUrl: string;
+}
+
+export type StorageConfig =
+  | {
+      driver: "local";
+      objectStorage: LocalObjectStorage;
+    }
+  | {
+      driver: "s3";
+      objectStorage: S3ObjectStorage;
+    };
+
+export function createStorageOptions(
+  config: StorageConfig,
+): StorageModuleOptions {
+  switch (config.driver) {
+    case "s3":
+      return getS3Config(config.objectStorage);
+
+    case "local":
+      return getLocalConfig(config.objectStorage);
+
+    default:
+      throw new Error("Invalid storage driver");
+  }
+}
+
+function getS3Config(config: S3ObjectStorage): StorageModuleOptions {
+  const { endpoint, region, privateBucket, publicBucket, publicUrl } = config;
 
   return {
     default: "private",
     disks: {
-      public: new S3Disk({ endpoint, region, bucket: publicBucket }),
-      private: new S3Disk({ endpoint, region, bucket: privateBucket }),
+      public: new S3Disk({
+        endpoint,
+        region,
+        bucket: publicBucket,
+        publicUrl,
+      }),
+      private: new S3Disk({
+        endpoint,
+        region,
+        bucket: privateBucket,
+      }),
     },
   };
 }
 
-function getLocalConfig(config: ConfigService) {
-  const apiUrl = config.getOrThrow<string>("api.apiUrl");
-  const root = config.getOrThrow<string>("storage.root");
-  const signingKey = config.getOrThrow<string>("storage.signingKey");
+function getLocalConfig(config: LocalObjectStorage): StorageModuleOptions {
+  const { root, signingKey } = config;
+  const baseUrl = config.baseUrl.replace(/\/+$/, "");
 
   return {
     default: "private",
     disks: {
       public: new LocalDisk({
-        root: `${root}/public`,
-        publicUrl: `http://${apiUrl}/files/public`,
+        root: join(root, "public"),
+        publicUrl: `${baseUrl}/files/public`,
       }),
-
       private: new LocalDisk({
-        root: `${root}/private`,
+        root: join(root, "private"),
         signedUrls: {
-          baseUrl: `http://${apiUrl}/files/private`,
+          baseUrl: `${baseUrl}/files/private`,
           keys: [signingKey],
         },
       }),
