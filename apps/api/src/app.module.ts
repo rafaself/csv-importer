@@ -3,9 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { ImportModule } from './apps/imports/import.module.js';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
-import { apiConfig, databaseConfig, storageConfig } from './app.config.js';
+import {
+  apiConfig,
+  buildStorageOptions,
+  databaseConfig,
+  storageConfig,
+} from './app.config.js';
 import { StorageModule } from '@nestjs/storage';
-import { createStorageOptions } from '@csv/storage';
 
 @Module({
   imports: [
@@ -25,11 +29,9 @@ import { createStorageOptions } from '@csv/storage';
 
     StorageModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: createStorageOptions,
+      useFactory: buildStorageOptions,
     }),
   ],
   controllers: [AppController],
 })
-export class AppModule {
-  constructor(private configService: ConfigService) {}
-}
+export class AppModule {}
