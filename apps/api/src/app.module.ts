@@ -16,19 +16,17 @@ import { apiConfig, databaseConfig, storageConfig } from './app.config.js';
 
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [apiConfig, storageConfig],
+      load: [apiConfig, databaseConfig, storageConfig],
       envFilePath: '../../../.env',
+      cache: true,
     }),
+
     TypeOrmModule.forRootAsync({
       inject: [databaseConfig.KEY],
       useFactory: (options: ConfigType<typeof databaseConfig>) => options,
     }),
 
-    StorageModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) =>
-        createStorageOptions(config.getOrThrow('storage')),
-    }),
+    // StorageModule.forRootAsync(storageConfig.asProvider()),
   ],
   controllers: [AppController],
 })
