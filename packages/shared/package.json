@@ -1,7 +1,7 @@
 {
   "name": "@csv/shared",
   "version": "0.0.0",
-  "description": "",
+  "description": "Defines common import-domain concepts whose meaning stays consistent across applications.",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

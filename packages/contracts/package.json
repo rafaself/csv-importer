@@ -1,7 +1,7 @@
 {
   "name": "@csv/contracts",
   "version": "0.0.0",
-  "description": "",
+  "description": "Defines the data applications accept or expose at their boundaries, including runtime validation.",
   "type": "module",
   "exports": {
     ".": {
