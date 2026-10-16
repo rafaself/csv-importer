@@ -1,4 +1,6 @@
-export function loadDatabaseConfig(env: NodeJS.ProcessEnv): string {
+export function loadDatabaseConfig(env: NodeJS.ProcessEnv): {
+  databaseUrl: string;
+} {
   const databaseUrl = env.DATABASE_URL?.trim();
 
   if (!databaseUrl) {
@@ -11,5 +13,5 @@ export function loadDatabaseConfig(env: NodeJS.ProcessEnv): string {
     throw new Error("DATABASE_URL must be a valid PostgreSQL URL.");
   }
 
-  return databaseUrl;
+  return { databaseUrl };
 }

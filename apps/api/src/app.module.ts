@@ -5,6 +5,7 @@ import { ImportModule } from './apps/imports/import.module.js';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import {
   apiConfig,
+  buildDatabaseOptions,
   buildStorageOptions,
   databaseConfig,
   storageConfig,
@@ -12,23 +13,26 @@ import {
 import { StorageModule } from '@nestjs/storage';
 
 @Module({
+  controllers: [AppController],
   imports: [
     ImportModule,
 
     ConfigModule.forRoot({
+      cache: true,
+      envFilePath: '../../../.env',
       isGlobal: true,
       load: [apiConfig, databaseConfig, storageConfig],
-      envFilePath: '../../../.env',
-      cache: true,
     }),
 
-    TypeOrmModule.forRootAsync(databaseConfig.asProvider()),
+    TypeOrmModule.forRootAsync({
+      inject: [databaseConfig.KEY],
+      useFactory: buildDatabaseOptions,
+    }),
 
     StorageModule.forRootAsync({
       inject: [storageConfig.KEY],
       useFactory: buildStorageOptions,
     }),
   ],
-  controllers: [AppController],
 })
 export class AppModule {}

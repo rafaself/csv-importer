@@ -1,8 +1,6 @@
 import { StorageConfig } from "@csv/shared";
 
-export default function loadStorageConfig(
-  env: NodeJS.ProcessEnv,
-): StorageConfig {
+export function loadStorageConfig(env: NodeJS.ProcessEnv): StorageConfig {
   const storageDriver = env.STORAGE_DRIVER?.trim().toLowerCase() ?? "local";
 
   switch (storageDriver) {

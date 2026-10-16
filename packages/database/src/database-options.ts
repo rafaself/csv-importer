@@ -10,24 +10,12 @@ const migrationsGlob = join(
   "**/*{.ts,.js}",
 );
 
-function validateAndRetrieveDatabaseUrl(databaseUrl: string): string {
-  if (!databaseUrl) {
-    throw new Error("DATABASE_URL is required.");
-  }
-
-  const POSTGRES_URL_REGEX =
-    /^postgres(?:ql)?:\/\/[^:\s]+:[^@\s]+@[^:\s]+:\d+\/[^\s/?#]+(?:\?[^\s#]*)?$/;
-  if (!POSTGRES_URL_REGEX.test(databaseUrl)) {
-    throw new Error("DATABASE_URL must be a valid PostgreSQL URL.");
-  }
-
-  return databaseUrl;
-}
-
-export function getDatabaseOptions(env: NodeJS.ProcessEnv): DataSourceOptions {
+export function createDatabaseOptions(databaseOptions: {
+  databaseUrl: string;
+}): DataSourceOptions {
   return {
     type: "postgres",
-    url: validateAndRetrieveDatabaseUrl(env.DATABASE_URL!),
+    url: databaseOptions.databaseUrl,
     synchronize: false,
     entities,
     migrations: [migrationsGlob],

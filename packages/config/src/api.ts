@@ -1,4 +1,4 @@
-export default function loadApiConfig(env: NodeJS.ProcessEnv) {
+export function loadApiConfig(env: NodeJS.ProcessEnv) {
   const rawApiPort = env.API_PORT?.trim();
   if (!rawApiPort || !/^\d+$/.test(rawApiPort)) {
     throw new Error("API_PORT must be a number between 1 and 65535.");

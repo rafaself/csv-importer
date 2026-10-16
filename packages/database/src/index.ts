@@ -1,1 +1,1 @@
-export { getDatabaseOptions } from "./database-options.js";
+export { createDatabaseOptions } from "./database-options.js";
