@@ -1,4 +1,26 @@
-import { StorageConfig } from "@csv/shared";
+interface LocalObjectStorage {
+  root: string;
+  signingKey: string;
+  baseUrl: string;
+}
+
+interface S3ObjectStorage {
+  endpoint?: string;
+  region: string;
+  publicBucket: string;
+  privateBucket: string;
+  publicUrl: string;
+}
+
+export type StorageConfig =
+  | {
+      driver: "local";
+      objectStorage: LocalObjectStorage;
+    }
+  | {
+      driver: "s3";
+      objectStorage: S3ObjectStorage;
+    };
 
 export function loadStorageConfig(env: NodeJS.ProcessEnv): StorageConfig {
   const storageDriver = env.STORAGE_DRIVER?.trim().toLowerCase() ?? "local";

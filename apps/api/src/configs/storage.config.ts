@@ -1,5 +1,4 @@
-import { loadStorageConfig } from '@csv/config';
-import { StorageConfig } from '@csv/shared';
+import { loadStorageConfig, StorageConfig } from '@csv/config';
 import { createStorageOptions } from '@csv/storage';
 import { registerAs } from '@nestjs/config';
 import { type StorageModuleOptions } from '@nestjs/storage';
