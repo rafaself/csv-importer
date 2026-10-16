@@ -1,10 +1,10 @@
-interface LocalObjectStorage {
+export interface LocalObjectStorage {
   root: string;
   signingKey: string;
   baseUrl: string;
 }
 
-interface S3ObjectStorage {
+export interface S3ObjectStorage {
   endpoint?: string;
   region: string;
   publicBucket: string;

@@ -13,5 +13,7 @@ export function loadDatabaseConfig(env: NodeJS.ProcessEnv): {
     throw new Error("DATABASE_URL must be a valid PostgreSQL URL.");
   }
 
+  console.log(databaseUrl);
+
   return { databaseUrl };
 }

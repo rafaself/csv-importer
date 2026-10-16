@@ -2,7 +2,7 @@ import {
   LocalObjectStorage,
   S3ObjectStorage,
   StorageConfig,
-} from "@csv/shared";
+} from "@csv/config";
 import { LocalDisk, S3Disk, type StorageModuleOptions } from "@nestjs/storage";
 import { join } from "node:path";
 
