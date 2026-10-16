@@ -30,7 +30,7 @@ function getS3Config(config: ConfigService) {
 }
 
 function getLocalConfig(config: ConfigService) {
-  const apiUrl = config.getOrThrow<string>("apiUrl");
+  const apiUrl = config.getOrThrow<string>("api.apiUrl");
   const root = config.getOrThrow<string>("storage.root");
   const signingKey = config.getOrThrow<string>("storage.signingKey");
 
