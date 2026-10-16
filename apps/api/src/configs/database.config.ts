@@ -2,10 +2,11 @@ import { loadDatabaseConfig } from '@csv/config';
 import { createDatabaseOptions } from '@csv/database';
 import { registerAs } from '@nestjs/config';
 
-export const databaseConfig = registerAs('database', () =>
-  loadDatabaseConfig(process.env),
-);
+export const databaseConfig = registerAs('database', () => ({
+  databaseUrl: loadDatabaseConfig(process.env),
+}));
 
-export const buildDatabaseOptions = (databaseUrl: string) => {
+export const buildDatabaseOptions = (config: { databaseUrl: string }) => {
+  const { databaseUrl } = config;
   return createDatabaseOptions(databaseUrl);
 };

@@ -10,12 +10,10 @@ const migrationsGlob = join(
   "**/*{.ts,.js}",
 );
 
-export function createDatabaseOptions(databaseOptions: {
-  databaseUrl: string;
-}): DataSourceOptions {
+export function createDatabaseOptions(databaseUrl: string): DataSourceOptions {
   return {
     type: "postgres",
-    url: databaseOptions.databaseUrl,
+    url: databaseUrl,
     synchronize: false,
     entities,
     migrations: [migrationsGlob],
