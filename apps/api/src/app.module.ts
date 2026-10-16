@@ -20,7 +20,7 @@ import {
     ImportModule,
 
     ConfigModule.forRoot({
-      envFilePath: '../../../.env',
+      envFilePath: '../../.env',
       expandVariables: true,
       isGlobal: true,
       load: [apiConfig, databaseConfig, storageConfig],
