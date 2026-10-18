@@ -1,4 +1,4 @@
-import { DataSource, DeleteResult, Repository } from "typeorm";
+import { DataSource, DeleteResult, type Repository } from "typeorm";
 import { Import } from "./import.entity.js";
 
 interface ImportRepositoryPort {
