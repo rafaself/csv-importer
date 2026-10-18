@@ -4,8 +4,8 @@ import { Import } from "./import.entity.js";
 interface ImportRepositoryPort {
   findAll(): Promise<Import[]>;
   findById(id: string): Promise<Import | null>;
-  create(importData: Import): Promise<Import>;
-  delete(id: string): Promise<DeleteResult>;
+  save(importData: Import): Promise<Import>;
+  deleteById(id: string): Promise<DeleteResult>;
 }
 
 export class ImportRepository implements ImportRepositoryPort {
@@ -23,11 +23,11 @@ export class ImportRepository implements ImportRepositoryPort {
     return await this.repository.find();
   }
 
-  async create(importData: Import) {
+  async save(importData: Import) {
     return await this.repository.save(importData);
   }
 
-  async delete(id: string) {
+  async deleteById(id: string) {
     return await this.repository.delete({ id });
   }
 }
