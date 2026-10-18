@@ -1,33 +1,33 @@
 import { DataSource, DeleteResult, Repository } from "typeorm";
 import { Import } from "./import.entity.js";
 
-interface IImportRepository {
-  find(): Promise<Import[]>;
+interface ImportRepositoryPort {
+  findAll(): Promise<Import[]>;
   findById(id: string): Promise<Import | null>;
   create(importData: Import): Promise<Import>;
   delete(id: string): Promise<DeleteResult>;
 }
 
-export class ImportRepository implements IImportRepository {
-  userRepository: Repository<Import>;
+export class ImportRepository implements ImportRepositoryPort {
+  private readonly repository: Repository<Import>;
 
   constructor(private readonly dataSource: DataSource) {
-    this.userRepository = this.dataSource.getRepository(Import);
+    this.repository = this.dataSource.getRepository(Import);
   }
 
   async findById(id: string) {
-    return await this.userRepository.findOneBy({ id });
+    return await this.repository.findOneBy({ id });
   }
 
-  async find() {
-    return await this.userRepository.find();
+  async findAll() {
+    return await this.repository.find();
   }
 
   async create(importData: Import) {
-    return await this.userRepository.save(importData);
+    return await this.repository.save(importData);
   }
 
   async delete(id: string) {
-    return await this.userRepository.delete({ id });
+    return await this.repository.delete({ id });
   }
 }
