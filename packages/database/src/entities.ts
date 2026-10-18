@@ -1,6 +1,6 @@
-import { Import } from "./entities/import.entity.js";
+import { Import } from "./domains/import/import.entity.js";
 import { ImportRow } from "./entities/import-row.entity.js";
-import { User } from "./entities/user.entity.js";
+import { User } from "./domains/user/user.entity.js";
 
 export type EntityClass = abstract new (...args: never[]) => object;
 

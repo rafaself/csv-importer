@@ -7,8 +7,8 @@ import {
   Relation,
   Unique,
 } from "typeorm";
-import { Import } from "./import.entity.js";
 import { ImportRowIssue, ImportRowStatus } from "@csv/shared";
+import { Import } from "../import/import.entity.js";
 
 @Entity("import_rows")
 @Unique("UQ_IMPORT_ROWS_IMPORT_ID_ROW_NUMBER", ["import", "rowNumber"])
