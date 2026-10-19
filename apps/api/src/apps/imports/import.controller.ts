@@ -18,7 +18,7 @@ import { ImportRepository } from '@csv/database';
 
 @Controller('import')
 export class ImportController {
-  constructor(private readonly importService: ImportService) {}
+  constructor(private readonly service: ImportService) {}
 
   @Post()
   @UseInterceptors(
@@ -32,6 +32,14 @@ export class ImportController {
     }),
   )
   importData(@UploadedFile() file: StoredUpload | undefined) {
+    if (!file) {
+      throw new BadRequestException('File must be provided.');
+    }
+
+    this.service.save({
+      originalFileName: file.originalname,
+      storageKey: file.key,
+    });
     return file;
   }
 }

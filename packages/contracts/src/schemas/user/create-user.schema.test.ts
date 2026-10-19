@@ -3,8 +3,7 @@ import { createUserSchema } from "./create-user.schema.js";
 
 import { ImportStatus } from "@csv/shared";
 import type { CreateUserDto } from "../../dtos/user.dto.js";
-import { updateImportStatusSchema } from "../import/update-import.schema.js";
-import type { UpdateImportStatusDto } from "../../dtos/import.dto.js";
+import { updateImportSchema } from "../import/update-import.schema.js";
 
 describe("create user", () => {
   it("trims surrounding whitespace", () => {
@@ -74,7 +73,7 @@ describe("create user", () => {
 describe("update user status", () => {
   it("checks hard texted 'INVALID_STATUS' invalid status", () => {
     const userData = { status: "INVALID_STATUS" };
-    const result = updateImportStatusSchema.safeParse(userData);
+    const result = updateImportSchema.safeParse(userData);
     expect(result.success).toBe(false);
   });
 
@@ -84,15 +83,15 @@ describe("update user status", () => {
     ImportStatus.PENDING,
     ImportStatus.PROCESSING,
   ])("checks %s status", (val) => {
-    const userData: UpdateImportStatusDto = { status: val };
-    const result = updateImportStatusSchema.safeParse(userData);
+    const userData = { status: val };
+    const result = updateImportSchema.safeParse(userData);
     expect(result.success).toBe(true);
   });
 
   it.each(["COMPLETED", "FAILED", "PENDING", "PROCESSING"])(
     "rejects uppercase status %s",
     (status) => {
-      const result = updateImportStatusSchema.safeParse({ status });
+      const result = updateImportSchema.safeParse({ status });
 
       expect(result.success).toBe(false);
 

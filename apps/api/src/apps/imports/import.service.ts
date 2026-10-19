@@ -1,3 +1,4 @@
+import { CreateImportDto } from '@csv/contracts';
 import { Import, ImportRepository } from '@csv/database';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,7 +11,7 @@ export class ImportService {
     private readonly repository: Repository<Import>,
   ) {}
 
-  async save(data: any) {
+  async save(data: CreateImportDto) {
     await this.repository.save(data);
   }
 }
