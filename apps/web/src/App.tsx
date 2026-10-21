@@ -4,7 +4,7 @@ function App() {
   return (
     <>
       <section id="center">
-        <h1 aria-label="csv importer title">CSV Importer</h1>
+        <h1 aria-label="file importer title">File Importer</h1>
       </section>
     </>
   );

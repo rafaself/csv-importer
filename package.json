@@ -1,7 +1,7 @@
 {
-  "name": "csv-importer",
+  "name": "file-importer",
   "version": "1.0.0",
-  "description": "Study project",
+  "description": "NestJS-based file import project, starting with CSV",
   "keywords": [],
   "author": "Rafael",
   "license": "ISC",

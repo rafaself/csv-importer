@@ -1,8 +1,14 @@
-# CSV Importer Learning Path
+# File Importer
 
-This is a hands-on learning path for building a CSV import dashboard from the ground up. You will create a pnpm workspace with a React web app, a NestJS API, a separate NestJS worker, PostgreSQL, Redis, and shared TypeScript packages.
+A NestJS-based file import project, starting with CSV and intended to support additional file formats. The workspace includes a React web app, a NestJS API, a separate NestJS worker, PostgreSQL, Redis, and shared TypeScript packages.
 
-The repository starts with the learning materials. The applications are built as you work through the phases; there is no finished implementation to install or run at the start.
+## Current scope
+
+The project is in active development. The initial upload handling is CSV-oriented; additional format handlers and asynchronous job processing are planned.
+
+## Learning path
+
+The included hands-on learning path builds the initial CSV import dashboard from the ground up. The applications are developed incrementally through the phases below.
 
 ## Start here
 
