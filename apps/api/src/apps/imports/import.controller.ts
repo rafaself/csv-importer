@@ -14,7 +14,6 @@ import {
 } from '@nestjs/storage';
 import { FILE_TYPES, MAX_FILE_SIZE } from '@csv/storage';
 import { detectCsvContentType } from './import.utils.js';
-import { ImportRepository } from '@csv/database';
 
 @Controller('import')
 export class ImportController {
@@ -31,15 +30,20 @@ export class ImportController {
       limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     }),
   )
-  importData(@UploadedFile() file: StoredUpload | undefined) {
+  async importData(@UploadedFile() file: StoredUpload | undefined) {
     if (!file) {
       throw new BadRequestException('File must be provided.');
     }
 
-    this.service.save({
-      originalFileName: file.originalname,
-      storageKey: file.key,
-    });
-    return file;
+    try {
+      await this.service.save({
+        originalFileName: file.originalname,
+        storageKey: file.key,
+      });
+      return file;
+    } catch (err) {
+      await this.service.deleteFile(file.key, file.disk!);
+      throw err;
+    }
   }
 }

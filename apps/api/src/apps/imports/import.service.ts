@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { storageConfig } from '../../configs/storage.config.js';
 import type { StorageConfig } from '@csv/config';
 import { unlink } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import path, { isAbsolute, relative, resolve } from 'node:path';
 
 @Injectable()
 export class ImportService {
@@ -24,12 +24,24 @@ export class ImportService {
     return storage.driver === 'local';
   }
 
-  async deleteFile(fileName: string) {
-    if (this.isLocalStorage(this.storageConfig)) {
-      const root = this.storageConfig.objectStorage.root;
-      const filePath = resolve(root, fileName);
-      await unlink(filePath);
+  async deleteFile(fileName: string, disk: string) {
+    if (!this.isLocalStorage(this.storageConfig)) return;
+
+    const root = resolve(this.storageConfig.objectStorage.root);
+    const folderPath = resolve(root, disk);
+    const filePath = resolve(folderPath, fileName);
+
+    const relativePath = relative(root, filePath);
+
+    if (
+      relativePath === '..' ||
+      relativePath.startsWith(`..${path.sep}`) ||
+      isAbsolute(relativePath)
+    ) {
+      throw new Error('Caminho de arquivo inválido');
     }
+
+    await unlink(filePath);
   }
 
   async save(data: CreateImportDto) {
